@@ -9,137 +9,191 @@ The calculator will provide a simple result for each person in your party.
 # TODO
 Show mathematical steps for each person's total cost.
 Integrate with payment app?
+---------------------------------------------------
+# Angular QuickStart Source
+[![Build Status][travis-badge]][travis-badge-url]
 
-----------------------------------------------------------
+This repository holds the TypeScript source code of the [angular.io quickstart](https://angular.io/docs/ts/latest/quickstart.html),
+the foundation for most of the documentation samples and potentially a good starting point for your application.
 
-# WARNING
+It's been extended with testing support so you can start writing tests immediately.
 
-This project is no longer maintained. For Angular 2 starter take a look at the [angular2-seed](https://github.com/mgechev/angular2-seed), that this project is based on.
+**This is not the perfect arrangement for your application. It is not designed for production.
+It exists primarily to get you started quickly with learning and prototyping in Angular**
 
-# Introduction
+We are unlikely to accept suggestions about how to grow this QuickStart into something it is not.
+Please keep that in mind before posting issues and PRs.
 
-Sample application based upon [mgechev](https://github.com/mgechev)/ [angular2-seed](https://github.com/mgechev/angular2-seed).
+## Updating to a newer version of the Quickstart Repo
 
-[![Join the chat at https://gitter.im/mgechev/angular2-seed](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mgechev/angular2-seed?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Dependency Status](https://david-dm.org/mgechev/angular2-seed.svg)](https://david-dm.org/mgechev/angular2-seed)
-[![devDependency Status](https://david-dm.org/mgechev/angular2-seed/dev-status.svg)](https://david-dm.org/mgechev/angular2-seed#info=devDependencies)
+From time to time the QuickStart will add be enhanced with support for new features or to reflect
+changes to the [official Style Guide](https://angular.io/docs/ts/latest/guide/style-guide.html).
 
-**Note:** Angular 2.0 is not production ready yet! This project is perfect for playing around with the latest versions but do not start new projects with it since a lot of new changes are going to be introduced until the framework is officially released.
+You can update your existing project to an up-to-date QuickStart by following these instructions:
+- Create a new project using the [instructions below](#create-a-new-project-based-on-the-quickstart)
+- Copy the code you have in your project's `main.ts` file onto `src/app/main.ts` in the new project
+- Copy your old `app` folder into `src/app`
+- Delete `src/app/main.ts` if you have one (we now use `src/main.ts` instead)
+- Copy your old `index.html`, `styles.css` and `tsconfig.json` into `src/`
+- Install all your third party dependencies
+- Copy your old `e2e/` folder into `e2e/`
+- Copy over any other files you added to your project
+- Copy your old `.git` folder into your new project's root
 
-# Features
+Now you can continue working on the new project.
 
-* Component styling
-* Custom Directive
-* Router module (implementing child routes*)
-* Http module
-* Form module (using template driven form approach)
+## Prerequisites
 
-# How to start
+Node.js and npm are essential to Angular development. 
+    
+<a href="https://docs.npmjs.com/getting-started/installing-node" target="_blank" title="Installing Node.js and updating npm">
+Get it now</a> if it's not already installed on your machine.
+ 
+**Verify that you are running at least node `v4.x.x` and npm `3.x.x`**
+by running `node -v` and `npm -v` in a terminal/console window.
+Older versions produce errors.
 
-**Note** that this seed project requires node v0.12.x or higher and npm 3.x.x.
+We recommend [nvm](https://github.com/creationix/nvm) for managing multiple versions of node and npm.
 
-```bash
+## Create a new project based on the QuickStart
+
+Clone this repo into new project folder (e.g., `my-proj`).
+```shell
+git clone https://github.com/angular/quickstart  my-proj
+cd my-proj
+```
+
+We have no intention of updating the source on `angular/quickstart`.
+Discard the `.git` folder..
+```shell
+rm -rf .git  # OS/X (bash)
+rd .git /S/Q # windows
+```
+### Delete _non-essential_ files (optional)
+
+You can quickly delete the _non-essential_ files that concern testing and QuickStart repository maintenance
+(***including all git-related artifacts*** such as the `.git` folder and `.gitignore`!)
+by entering the following commands while in the project folder:
+
+##### OS/X (bash)
+```shell
+xargs rm -rf < non-essential-files.osx.txt
+rm src/app/*.spec*.ts
+rm non-essential-files.osx.txt
+```
+
+##### Windows
+```shell
+for /f %i in (non-essential-files.txt) do del %i /F /S /Q
+rd .git /s /q
+rd e2e /s /q
+```
+
+### Create a new git repo
+You could [start writing code](#start-development) now and throw it all away when you're done.
+If you'd rather preserve your work under source control, consider taking the following steps.
+
+Initialize this project as a *local git repo* and make the first commit:
+```shell
+git init
+git add .
+git commit -m "Initial commit"
+```
+
+>Recover the deleted `.gitignore` from the QuickStart repository 
+if you lost it in the _Delete non-essential files_ step.
+
+Create a *remote repository* for this project on the service of your choice.
+
+Grab its address (e.g. *`https://github.com/<my-org>/my-proj.git`*) and push the *local repo* to the *remote*.
+```shell
+git remote add origin <repo-address>
+git push -u origin master
+```
+## Install npm packages
+
+> See npm and nvm version notes above
+
+Install the npm packages described in the `package.json` and verify that it works:
+
+```shell
 npm install
-# dev
-npm run serve.dev
-```
-_Does not rely on any global dependencies._
-
-# Directory Structure
-
-```
-.
-├── app
-│   ├── components
-│   │   ├── about
-│   │   │   ├── about.html
-│   │   │   ├── about.ts
-│   │   │   └── about_spec.ts
-│   │   └── home
-│   │       ├── home.css
-│   │       ├── home.html
-│   │       ├── home.ts
-│   │       └── home_spec.ts
-│   ├── services
-│   │   ├── name_list.ts
-│   │   └── name_list_spec.ts
-│   ├── typings
-│   ├── app.css
-│   ├── app.html
-│   ├── app.ts
-│   ├── index.html
-│   └── init.ts
-├── dist
-│   ├── dev
-│   └── prod
-├── tools
-│   ├── tasks
-│   ├── utils.js
-│   └── workflow.config.js
-├── tsd_typings
-├── gulpfile.js
-├── karma.conf.js
-├── package.json
-├── test-main.js
-├── tsconfig.json
-└── tsd.json
+npm start
 ```
 
-# Configuration
+>Doesn't work in _Bash for Windows_ which does not support servers as of January, 2017.
 
-Default application server configuration
+The `npm start` command first compiles the application, 
+then simultaneously re-compiles and runs the `lite-server`.
+Both the compiler and the server watch for file changes.
 
-```javascript
-var PORT             = 5555;
-var LIVE_RELOAD_PORT = 4002;
-var APP_BASE         = '/';
-```
+Shut it down manually with `Ctrl-C`.
 
-Configure at runtime
+You're ready to write your application.
 
-```bash
-npm run serve.dev -- --port 8080 --reload-port 4000 --base /my-app/
-```
+### npm scripts
 
-# Now to extend?
+We've captured many of the most useful commands in npm scripts defined in the `package.json`:
 
-If you want to use your custom libraries:
+* `npm start` - runs the compiler and a server at the same time, both in "watch mode".
+* `npm run build` - runs the TypeScript compiler once.
+* `npm run build:w` - runs the TypeScript compiler in watch mode; the process keeps running, awaiting changes to TypeScript files and re-compiling when it sees them.
+* `npm run serve` - runs the [lite-server](https://www.npmjs.com/package/lite-server), a light-weight, static file server, written and maintained by
+[John Papa](https://github.com/johnpapa) and
+[Christopher Martin](https://github.com/cgmartin)
+with excellent support for Angular apps that use routing.
 
-```bash
-npm install my-library --save
-vim gulpfile.js
-```
-Add reference to the installed library in `PATH.src.lib` into `./tools/workflow.config.js`.
+Here are the test related scripts:
+* `npm test` - compiles, runs and watches the karma unit tests
+* `npm run e2e` - compiles and run protractor e2e tests, written in Typescript (*e2e-spec.ts)
 
-# Running test
+## Testing
 
-```bash
-# In a single bash window
-npm run test
+The QuickStart documentation doesn't discuss testing.
+This repo adds both karma/jasmine unit test and protractor end-to-end testing support.
 
-# Debug - In two bash windows
-npm run karma      # 1st window
-npm run test.dev   # 2nd window
-```
+These tools are configured for specific conventions described below.
 
-# Contributors
+*It is unwise and rarely possible to run the application, the unit tests, and the e2e tests at the same time.
+We recommend that you shut down one before starting another.*
 
-[<img alt="mgechev" src="https://avatars.githubusercontent.com/u/455023?v=3&s=117" width="117">](https://github.com/mgechev) |[<img alt="ludohenin" src="https://avatars.githubusercontent.com/u/1011516?v=3&s=117" width="117">](https://github.com/ludohenin) |[<img alt="NathanWalker" src="https://avatars.githubusercontent.com/u/457187?v=3&s=117" width="117">](https://github.com/NathanWalker) |[<img alt="tarlepp" src="https://avatars.githubusercontent.com/u/595561?v=3&s=117" width="117">](https://github.com/tarlepp) |[<img alt="aboeglin" src="https://avatars.githubusercontent.com/u/8297302?v=3&s=117" width="117">](https://github.com/aboeglin) |[<img alt="jerryorta-dev" src="https://avatars.githubusercontent.com/u/341155?v=3&s=117" width="117">](https://github.com/jerryorta-dev) |
-:---: |:---: |:---: |:---: |:---: |:---: |
-[mgechev](https://github.com/mgechev) |[ludohenin](https://github.com/ludohenin) |[NathanWalker](https://github.com/NathanWalker) |[tarlepp](https://github.com/tarlepp) |[aboeglin](https://github.com/aboeglin) |[jerryorta-dev](https://github.com/jerryorta-dev) |
+### Unit Tests
+TypeScript unit-tests are usually in the `src/app` folder. Their filenames must end in `.spec.ts`.
 
-[<img alt="TuiKiken" src="https://avatars.githubusercontent.com/u/959821?v=3&s=117" width="117">](https://github.com/TuiKiken) |[<img alt="ryzy" src="https://avatars.githubusercontent.com/u/994940?v=3&s=117" width="117">](https://github.com/ryzy) |[<img alt="ultrasonicsoft" src="https://avatars.githubusercontent.com/u/4145169?v=3&s=117" width="117">](https://github.com/ultrasonicsoft) |[<img alt="mjwwit" src="https://avatars.githubusercontent.com/u/4455124?v=3&s=117" width="117">](https://github.com/mjwwit) |[<img alt="natarajanmca11" src="https://avatars.githubusercontent.com/u/9244766?v=3&s=117" width="117">](https://github.com/natarajanmca11) |[<img alt="philipooo" src="https://avatars.githubusercontent.com/u/1702399?v=3&s=117" width="117">](https://github.com/philipooo) |
-:---: |:---: |:---: |:---: |:---: |:---: |
-[TuiKiken](https://github.com/TuiKiken) |[ryzy](https://github.com/ryzy) |[ultrasonicsoft](https://github.com/ultrasonicsoft) |[mjwwit](https://github.com/mjwwit) |[natarajanmca11](https://github.com/natarajanmca11) |[philipooo](https://github.com/philipooo) |
+Look for the example `src/app/app.component.spec.ts`.
+Add more `.spec.ts` files as you wish; we configured karma to find them.
 
-[<img alt="redian" src="https://avatars.githubusercontent.com/u/816941?v=3&s=117" width="117">](https://github.com/redian) |[<img alt="robertpenner" src="https://avatars.githubusercontent.com/u/79827?v=3&s=117" width="117">](https://github.com/robertpenner) |[<img alt="jgolla" src="https://avatars.githubusercontent.com/u/1542447?v=3&s=117" width="117">](https://github.com/jgolla) |[<img alt="dstockhammer" src="https://avatars.githubusercontent.com/u/1156637?v=3&s=117" width="117">](https://github.com/dstockhammer) |
-:---: |:---: |:---: |:---: |
-[redian](https://github.com/redian) |[robertpenner](https://github.com/robertpenner) |[jgolla](https://github.com/jgolla) |[dstockhammer](https://github.com/dstockhammer) |
+Run it with `npm test`
 
-# Change Log
+That command first compiles the application, then simultaneously re-compiles and runs the karma test-runner.
+Both the compiler and the karma watch for (different) file changes.
 
-You can follow the [Angular 2 change log here](https://github.com/angular/angular/blob/master/CHANGELOG.md).
+Shut it down manually with `Ctrl-C`.
 
-# License
+Test-runner output appears in the terminal window.
+We can update our app and our tests in real-time, keeping a weather eye on the console for broken tests.
+Karma is occasionally confused and it is often necessary to shut down its browser or even shut the command down (`Ctrl-C`) and
+restart it. No worries; it's pretty quick.
 
-MIT
+### End-to-end (E2E) Tests
+
+E2E tests are in the `e2e` directory, side by side with the `src` folder.
+Their filenames must end in `.e2e-spec.ts`.
+
+Look for the example `e2e/app.e2e-spec.ts`.
+Add more `.e2e-spec.js` files as you wish (although one usually suffices for small projects);
+we configured Protractor to find them.
+
+Thereafter, run them with `npm run e2e`.
+
+That command first compiles, then simultaneously starts the `lite-server` at `localhost:8080`
+and launches Protractor.  
+
+The pass/fail test results appear at the bottom of the terminal window.
+A custom reporter (see `protractor.config.js`) generates a  `./_test-output/protractor-results.txt` file
+which is easier to read; this file is excluded from source control.
+
+Shut it down manually with `Ctrl-C`.
+
+[travis-badge]: https://travis-ci.org/angular/quickstart.svg?branch=master
+[travis-badge-url]: https://travis-ci.org/angular/quickstart
