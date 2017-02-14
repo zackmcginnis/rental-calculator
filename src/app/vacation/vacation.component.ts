@@ -23,27 +23,29 @@ export class VacationComponent implements OnChanges {
   createForm() {
     this.vacationForm = this.fb.group({
       name: '',
-      secretLairs: this.fb.array([]),
+      price: 0,
+      guests: this.fb.array([]),
       power: '',
       sidekick: ''
     });
   }
   ngOnChanges() {
     this.vacationForm.reset({
-      name: this.vacation.name
+      name: this.vacation.name,
+      price: this.vacation.price
     });
     this.setGuests(this.vacation.guests);
   }
-  get secretLairs(): FormArray {
-    return this.vacationForm.get('secretLairs') as FormArray;
+  get guests(): FormArray {
+    return this.vacationForm.get('guests') as FormArray;
   };
   setGuests(guests: Guests[]) {
     const guestFGs = guests.map(guest => this.fb.group(guest));
     const guestFormArray = this.fb.array(guestFGs);
-    this.vacationForm.setControl('secretLairs', guestFormArray);
+    this.vacationForm.setControl('guests', guestFormArray);
   }
-  addLair() {
-    this.secretLairs.push(this.fb.group(new Guests()));
+  addGuest() {
+    this.guests.push(this.fb.group(new Guests()));
   }
   onSubmit() {
     this.vacation = this.prepareSaveVacation();
@@ -53,7 +55,7 @@ export class VacationComponent implements OnChanges {
   prepareSaveVacation(): Vacation {
     const formModel = this.vacationForm.value;
     // deep copy of form model lairs
-    const secretLairsDeepCopy: Guests[] = formModel.secretLairs.map(
+    const guestsDeepCopy: Guests[] = formModel.guests.map(
       (guest: Guests) => Object.assign({}, guest)
     );
     // return new `Hero` object containing a combination of original hero value(s)
@@ -61,8 +63,9 @@ export class VacationComponent implements OnChanges {
     const saveVacation: Vacation = {
       id: this.vacation.id,
       name: formModel.name as string,
+      price: formModel.price as number,
       // addresses: formModel.secretLairs // <-- bad!
-      guests: secretLairsDeepCopy
+      guests: guestsDeepCopy
     };
     return saveVacation;
   }

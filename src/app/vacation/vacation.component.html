@@ -11,8 +11,13 @@
         <input class="form-control" formControlName="name">
       </label>
   </div>
-  <div formArrayName="secretLairs" class="well well-lg">
-    <div *ngFor="let guest of secretLairs.controls; let i=index" [formGroupName]="i" >
+  <div class="form-group">
+      <label>Price:
+        <input class="form-control" formControlName="price">
+      </label>
+  </div>
+  <div formArrayName="guests" class="well well-lg">
+    <div *ngFor="let guest of guests.controls; let i=index" [formGroupName]="i" >
       <!-- The repeated address template -->
       <h4>Guest #{{i + 1}}</h4>
       <div style="margin-left: 1em;">
@@ -42,7 +47,7 @@
       <br>
       <!-- End of the repeated address template -->
     </div>
-    <button (click)="addLair()" type="button">Add a Secret Lair</button>
+    <button (click)="addGuest()" type="button">Add a guest</button>
   </div>
   <div class="form-group">
     <label>Super power:</label>
