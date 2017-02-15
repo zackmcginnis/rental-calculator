@@ -24,15 +24,14 @@ export class VacationComponent implements OnChanges {
     this.vacationForm = this.fb.group({
       name: '',
       price: 0,
-      guests: this.fb.array([]),
-      power: '',
-      sidekick: ''
+      guests: this.fb.array([])
     });
   }
   ngOnChanges() {
     this.vacationForm.reset({
       name: this.vacation.name,
-      price: this.vacation.price
+      price: this.vacation.price,
+      totalDays: this.vacation.totalDays
     });
     this.setGuests(this.vacation.guests);
   }
@@ -49,21 +48,31 @@ export class VacationComponent implements OnChanges {
   }
   onSubmit() {
     this.vacation = this.prepareSaveVacation();
+    //calculate total days by all guests in vacation
+    //assign to this.vacation
+    var days: number = 0;
+    for (var i=0; i<this.vacation.guests.length; i++){
+      days += this.vacation.guests[i].guestDays;
+    }
+    this.vacation.totalDays = days;
+
     this.vacationService.updateVacation(this.vacation).subscribe(/* error handling */);
     this.ngOnChanges();
   }
   prepareSaveVacation(): Vacation {
     const formModel = this.vacationForm.value;
-    // deep copy of form model lairs
+    // deep copy of form model guests
     const guestsDeepCopy: Guests[] = formModel.guests.map(
       (guest: Guests) => Object.assign({}, guest)
     );
-    // return new `Hero` object containing a combination of original hero value(s)
+
+    // return new `Vacation` object containing a combination of original vacation value(s)
     // and deep copies of changed form model values
     const saveVacation: Vacation = {
       id: this.vacation.id,
       name: formModel.name as string,
       price: formModel.price as number,
+      totalDays: this.vacation.totalDays as number,
       // addresses: formModel.secretLairs // <-- bad!
       guests: guestsDeepCopy
     };
