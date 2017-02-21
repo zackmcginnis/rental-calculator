@@ -10,6 +10,7 @@ import { VacationComponent }   from './vacation/vacation.component';
 import { VacationListComponent }   from './vacation/vacation-list.component';
 import { BreakdownComponent }     from './breakdown/breakdown.component';
 import { PageNotFoundComponent }     from './not-found.component';
+import { FacebookLoginComponent }     from './facebook/facebook.component';
 
 import { VacationService }         from './vacation/vacation.service'; //  <-- #1 import service
 
@@ -19,10 +20,10 @@ import { VacationService }         from './vacation/vacation.service'; //  <-- #
   //, AppRoutingModule
   ],
   declarations: [ 
-  AppComponent, VacationComponent, VacationListComponent, BreakdownComponent, PageNotFoundComponent 
+  AppComponent, VacationComponent, VacationListComponent, BreakdownComponent, PageNotFoundComponent, FacebookLoginComponent 
   ],
   exports: [ // export for the DemoModule
-    AppComponent, VacationComponent, VacationListComponent, BreakdownComponent
+    AppComponent, VacationComponent, VacationListComponent, BreakdownComponent, FacebookLoginComponent
   ],
   providers: [ 
   VacationService 

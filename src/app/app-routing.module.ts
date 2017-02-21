@@ -4,6 +4,7 @@ import { RouterModule, Routes }  from '@angular/router';
 import { VacationComponent }   from './vacation/vacation.component';
 import { BreakdownComponent }     from './breakdown/breakdown.component';
 import { PageNotFoundComponent }     from './not-found.component';
+import { FacebookLoginComponent }     from './facebook/facebook.component';
 
 const appRoutes: Routes = [
   { path: 'vacation', component: VacationComponent },
